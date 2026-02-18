@@ -198,7 +198,7 @@ export default function JoinPage() {
             <h2 className="text-lg font-semibold text-gray-700 mb-6">지원서 다운로드</h2>
             <div className="grid sm:grid-cols-2 gap-4 mb-3">
               <a
-                href="/9기_금은동지원서_워드파일.docx"
+                href="/9기_금은동_지원서.docx"
                 download
                 className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >
@@ -210,7 +210,7 @@ export default function JoinPage() {
                 <Download className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
               </a>
               <a
-                href="/9기_금은동지원서_한글파일.hwp"
+                href="/9기_금은동_지원서.hwp"
                 download
                 className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >
@@ -254,7 +254,7 @@ export default function JoinPage() {
 
               <Input id="name" label="이름" placeholder="홍길동" required value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)} error={errors.name} />
-              <Input id="studentId" label="학번" placeholder="20211234" required value={formData.studentId}
+              <Input id="studentId" label="학번" placeholder="2021123456" required value={formData.studentId}
                 onChange={(e) => handleChange("studentId", e.target.value)} error={errors.studentId} />
               <Input id="email" label="이메일" type="email" placeholder="example@cbnu.ac.kr" required value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)} error={errors.email} />

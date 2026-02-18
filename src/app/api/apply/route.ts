@@ -38,54 +38,53 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "파일 크기는 10MB 이하여야 합니다" }, { status: 400 });
     }
 
-    const supabase = createServerClient();
-
-    // Upload file to Supabase Storage
-    const timestamp = Date.now();
-    const filePath = `9/${studentId}_${name}_${timestamp}${ext}`;
     const fileBuffer = Buffer.from(await file.arrayBuffer());
+    let fileUrl: string | null = null;
+    let supabaseOk = false;
 
-    const { error: uploadError } = await supabase.storage
-      .from("applications")
-      .upload(filePath, fileBuffer, {
-        contentType: file.type || "application/octet-stream",
+    // Try Supabase (optional — skip gracefully if env vars missing or upload fails)
+    try {
+      const supabase = createServerClient();
+      const timestamp = Date.now();
+      const filePath = `9/${studentId}_${name}_${timestamp}${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("applications")
+        .upload(filePath, fileBuffer, {
+          contentType: file.type || "application/octet-stream",
+        });
+
+      if (!uploadError) {
+        const { data: urlData } = supabase.storage
+          .from("applications")
+          .getPublicUrl(filePath);
+        fileUrl = urlData.publicUrl;
+      } else {
+        console.error("Storage upload error:", uploadError);
+      }
+
+      // Insert DB record (proceed even if storage failed — file_url may be null)
+      const { error: insertError } = await supabase.from("applicants").insert({
+        name,
+        student_id: studentId,
+        email,
+        phone,
+        file_url: fileUrl,
+        file_name: file.name,
+        generation: 9,
+        status: "pending",
       });
 
-    if (uploadError) {
-      console.error("File upload error:", uploadError);
-      return NextResponse.json(
-        { error: "파일 업로드에 실패했습니다. 다시 시도해주세요." },
-        { status: 500 }
-      );
+      if (insertError) {
+        console.error("DB insert error:", insertError);
+      } else {
+        supabaseOk = true;
+      }
+    } catch (supabaseError) {
+      console.error("Supabase unavailable:", supabaseError);
     }
 
-    // Get file URL
-    const { data: urlData } = supabase.storage
-      .from("applications")
-      .getPublicUrl(filePath);
-    const fileUrl = urlData.publicUrl;
-
-    // Insert applicant record
-    const { error: insertError } = await supabase.from("applicants").insert({
-      name,
-      student_id: studentId,
-      email,
-      phone,
-      file_url: fileUrl,
-      file_name: file.name,
-      generation: 9,
-      status: "pending",
-    });
-
-    if (insertError) {
-      console.error("DB insert error:", insertError);
-      return NextResponse.json(
-        { error: "지원서 저장에 실패했습니다. 다시 시도해주세요." },
-        { status: 500 }
-      );
-    }
-
-    // Send emails (non-blocking — don't fail the request if email fails)
+    // Send emails — always attempt; attach file to admin email if not stored in Supabase
     try {
       const resend = getResendClient();
       const applicantEmail = buildApplicantEmail(name);
@@ -93,7 +92,12 @@ export async function POST(request: NextRequest) {
 
       const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) =>
         e.trim()
-      ) || ["cbnu.gold@gmail.com"];
+      ) || ["cni351237@naver.com"];
+
+      // Attach file when not stored in Supabase Storage
+      const adminAttachments = !fileUrl
+        ? [{ filename: file.name, content: fileBuffer }]
+        : [];
 
       await Promise.allSettled([
         resend.emails.send({
@@ -106,12 +110,19 @@ export async function POST(request: NextRequest) {
           from: "금은동 시스템 <onboarding@resend.dev>",
           to: adminEmails,
           subject: adminEmail.subject,
-          text: adminEmail.text,
+          text: adminEmail.text + (fileUrl ? `\n\n파일: ${fileUrl}` : ""),
+          attachments: adminAttachments,
         }),
       ]);
     } catch (emailError) {
       console.error("Email send error:", emailError);
-      // Don't fail the request — DB record was saved
+      // If neither Supabase nor email worked, report failure
+      if (!supabaseOk) {
+        return NextResponse.json(
+          { error: "지원서 제출에 실패했습니다. 잠시 후 다시 시도해주세요." },
+          { status: 500 }
+        );
+      }
     }
 
     return NextResponse.json({ success: true });

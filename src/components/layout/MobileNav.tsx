@@ -94,7 +94,7 @@ export function MobileNav({ isOpen, onClose, items, pathname }: MobileNavProps) 
         </div>
 
         {/* CTA */}
-        <Link href="/join/apply" onClick={onClose} className="mt-4">
+        <Link href="/join" onClick={onClose} className="mt-4">
           <Button size="lg" className="w-64">
             지원하기
           </Button>
