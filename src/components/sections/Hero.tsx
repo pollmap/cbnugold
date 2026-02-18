@@ -37,7 +37,7 @@ export function Hero() {
           className="flex justify-center mb-6"
         >
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt="금은동 로고"
             width={200}
             height={62}
@@ -73,7 +73,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex items-center justify-center gap-4"
         >
-          <Link href="/join/apply">
+          <Link href="/join">
             <Button size="lg">지원하기</Button>
           </Link>
           <Link href="/about">

@@ -198,7 +198,7 @@ export default function JoinPage() {
             <h2 className="text-lg font-semibold text-gray-700 mb-6">지원서 다운로드</h2>
             <div className="grid sm:grid-cols-2 gap-4 mb-3">
               <a
-                href="/files/9기_금은동지원서_워드파일.docx"
+                href="/9기_금은동지원서_워드파일.docx"
                 download
                 className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >
@@ -210,7 +210,7 @@ export default function JoinPage() {
                 <Download className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
               </a>
               <a
-                href="/files/9기_금은동지원서_한글파일.hwp"
+                href="/9기_금은동지원서_한글파일.hwp"
                 download
                 className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >

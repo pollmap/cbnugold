@@ -11,7 +11,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/logo.svg"
+                src="/images/logo.png"
                 alt="금은동"
                 width={120}
                 height={37}
