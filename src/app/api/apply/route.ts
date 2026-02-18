@@ -3,6 +3,22 @@ import { createServerClient } from "@/lib/supabase-server";
 import { getResendClient, buildAdminEmail } from "@/lib/resend";
 import { validationRules, fileRules } from "@/lib/validations";
 
+function getStorageTroubleshootingHint(message?: string) {
+  if (!message) return "버킷 이름(applications), 파일 크기 제한(10MB), 그리고 Vercel 환경변수(NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)를 확인해주세요.";
+
+  if (message.includes("Bucket not found")) {
+    return "Storage에 applications 버킷이 실제로 생성되어 있는지 확인해주세요.";
+  }
+  if (message.includes("row-level security") || message.includes("permission")) {
+    return "storage.objects 정책(INSERT/SELECT) 또는 서비스 롤 키가 올바른지 확인해주세요.";
+  }
+  if (message.toLowerCase().includes("jwt") || message.toLowerCase().includes("invalid key")) {
+    return "SUPABASE_SERVICE_ROLE_KEY가 정확한지, Vercel에 최신 값으로 설정되었는지 확인해주세요.";
+  }
+
+  return "Storage 버킷/권한/환경변수를 다시 확인해주세요.";
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -52,10 +68,12 @@ export async function POST(request: NextRequest) {
 
     if (uploadError) {
       console.error("Storage upload error:", uploadError);
+      const detailedMessage = uploadError.message || "unknown error";
       return NextResponse.json(
         {
-          error:
-            "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+          error: "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+          details: detailedMessage,
+          hint: getStorageTroubleshootingHint(detailedMessage),
         },
         { status: 500 }
       );

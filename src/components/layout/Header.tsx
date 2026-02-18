@@ -79,10 +79,14 @@ export function Header() {
               href="https://www.instagram.com/cbnu_gold/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gold transition-colors"
+              className="group relative text-gray-400 hover:text-gold transition-colors"
               aria-label="Instagram"
+              title="@cbnu_gold"
             >
               <Instagram size={18} />
+              <span className="pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 rounded bg-gray-900 px-2 py-1 text-[10px] text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                @cbnu_gold
+              </span>
             </a>
             <a
               href="https://cafe.naver.com/cufaclub"
