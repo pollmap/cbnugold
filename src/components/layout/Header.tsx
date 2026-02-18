@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { MobileNav } from "./MobileNav";
-import { Menu } from "lucide-react";
+import { Menu, Instagram } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/people", label: "People" },
   { href: "/activity", label: "Activity" },
   { href: "/join", label: "Join Us" },
 ];
@@ -31,16 +31,21 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 ${
           scrolled
-            ? "bg-navy-900/95 backdrop-blur-xl border-b border-gold/5"
+            ? "bg-white/95 backdrop-blur-xl border-b border-gold/10 shadow-sm"
             : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <span className="text-lg font-bold text-slate-50 group-hover:text-gold transition-colors">
-              CBNU GOLD
-            </span>
+            <Image
+              src="/images/logo.svg"
+              alt="금은동"
+              width={120}
+              height={37}
+              className="h-8 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -57,7 +62,7 @@ export function Header() {
                   className={`relative px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
                       ? "text-gold"
-                      : "text-slate-300 hover:text-gold"
+                      : "text-gray-600 hover:text-gold"
                   }`}
                 >
                   {item.label}
@@ -69,8 +74,26 @@ export function Header() {
             })}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
+          {/* Desktop Social + CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="https://www.instagram.com/cbnu_gold/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-gold transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram size={18} />
+            </a>
+            <a
+              href="https://cafe.naver.com/cufaclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-gold transition-colors text-sm font-bold"
+              aria-label="Naver Cafe"
+            >
+              N
+            </a>
             <Link href="/join/apply">
               <Button size="sm">지원하기</Button>
             </Link>
@@ -79,7 +102,7 @@ export function Header() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden text-slate-300 hover:text-gold transition-colors"
+            className="md:hidden text-gray-600 hover:text-gold transition-colors"
             aria-label="메뉴 열기"
           >
             <Menu size={24} />

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 interface MobileNavProps {
@@ -34,7 +34,7 @@ export function MobileNav({ isOpen, onClose, items, pathname }: MobileNavProps) 
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-navy-900/98 backdrop-blur-xl"
+        className="absolute inset-0 bg-white/98 backdrop-blur-xl"
         onClick={onClose}
       />
 
@@ -43,7 +43,7 @@ export function MobileNav({ isOpen, onClose, items, pathname }: MobileNavProps) 
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-6 text-slate-300 hover:text-gold transition-colors"
+          className="absolute top-5 right-6 text-gray-500 hover:text-gold transition-colors"
           aria-label="메뉴 닫기"
         >
           <X size={28} />
@@ -62,7 +62,7 @@ export function MobileNav({ isOpen, onClose, items, pathname }: MobileNavProps) 
                 href={item.href}
                 onClick={onClose}
                 className={`text-2xl font-semibold transition-colors ${
-                  isActive ? "text-gold" : "text-slate-200 hover:text-gold"
+                  isActive ? "text-gold" : "text-gray-700 hover:text-gold"
                 }`}
               >
                 {item.label}
@@ -70,6 +70,28 @@ export function MobileNav({ isOpen, onClose, items, pathname }: MobileNavProps) 
             );
           })}
         </nav>
+
+        {/* Social */}
+        <div className="flex items-center gap-5">
+          <a
+            href="https://www.instagram.com/cbnu_gold/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gold transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram size={22} />
+          </a>
+          <a
+            href="https://cafe.naver.com/cufaclub"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gold transition-colors text-base font-bold"
+            aria-label="Naver Cafe"
+          >
+            N
+          </a>
+        </div>
 
         {/* CTA */}
         <Link href="/join/apply" onClick={onClose} className="mt-4">

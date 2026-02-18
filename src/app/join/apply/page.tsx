@@ -138,14 +138,14 @@ export default function ApplyPage() {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-md mx-auto px-6 text-center"
         >
-          <CheckCircle className="w-16 h-16 text-emerald-400 mx-auto mb-6" />
-          <h1 className="text-2xl font-bold text-slate-50 mb-3">
+          <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">
             지원이 완료되었습니다
           </h1>
-          <p className="text-slate-400 mb-2">
+          <p className="text-gray-500 mb-2">
             {formData.name}님, 금은동 9기에 지원해주셔서 감사합니다.
           </p>
-          <p className="text-sm text-slate-500 mb-8">
+          <p className="text-sm text-gray-400 mb-8">
             입력하신 이메일로 확인 메일이 발송됩니다.
           </p>
           <a href="/" className="text-gold text-sm hover:underline">
@@ -158,7 +158,7 @@ export default function ApplyPage() {
 
   return (
     <div className="pt-24">
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white marble-texture">
         <div className="max-w-lg mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -166,18 +166,18 @@ export default function ApplyPage() {
             transition={{ duration: 0.6 }}
           >
             <SectionLabel label="Apply" className="mb-6" />
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-50 text-center mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
               온라인 지원서 제출
             </h1>
-            <p className="text-slate-400 text-center mb-12">
+            <p className="text-gray-500 text-center mb-12">
               아래 양식을 작성하고 지원서 파일을 첨부해주세요
             </p>
           </motion.div>
 
           {submitState === "error" && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-              <p className="text-sm text-red-300">{errorMessage}</p>
+              <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+              <p className="text-sm text-red-600">{errorMessage}</p>
             </div>
           )}
 
@@ -225,7 +225,7 @@ export default function ApplyPage() {
 
             {/* File Upload */}
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-slate-300">
+              <label className="block text-sm font-medium text-gray-700">
                 지원서 파일 <span className="text-gold">*</span>
               </label>
               <div
@@ -235,7 +235,7 @@ export default function ApplyPage() {
                     ? "border-red-400/40 bg-red-500/5"
                     : file
                       ? "border-gold/30 bg-gold/5"
-                      : "border-gold/10 hover:border-gold/30 bg-navy-600"
+                      : "border-gray-300 hover:border-gold/30 bg-marble-light"
                 }`}
               >
                 <input
@@ -245,22 +245,22 @@ export default function ApplyPage() {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <Upload className="w-8 h-8 text-slate-500 mx-auto mb-3" />
+                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-3" />
                 {file ? (
                   <p className="text-sm text-gold">{file.name}</p>
                 ) : (
                   <>
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-gray-500">
                       클릭하여 파일을 선택하세요
                     </p>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-gray-400 mt-1">
                       .hwp, .docx, .pdf (최대 10MB)
                     </p>
                   </>
                 )}
               </div>
               {errors.file && (
-                <p className="text-red-400 text-xs mt-1">{errors.file}</p>
+                <p className="text-red-500 text-xs mt-1">{errors.file}</p>
               )}
             </div>
 
@@ -276,14 +276,14 @@ export default function ApplyPage() {
                       setErrors((prev) => ({ ...prev, consent: undefined }));
                     }
                   }}
-                  className="mt-1 w-4 h-4 rounded border-gold/30 bg-navy-600 text-gold focus:ring-gold/30 accent-[#C9A84C]"
+                  className="mt-1 w-4 h-4 rounded border-gray-300 bg-white text-gold focus:ring-gold/30 accent-[#C9A84C]"
                 />
-                <span className="text-sm text-slate-300">
+                <span className="text-sm text-gray-600">
                   개인정보 수집 및 이용에 동의합니다
                 </span>
               </label>
               {errors.consent && (
-                <p className="text-red-400 text-xs">{errors.consent}</p>
+                <p className="text-red-500 text-xs">{errors.consent}</p>
               )}
             </div>
 

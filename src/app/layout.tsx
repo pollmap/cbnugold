@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "금은동 | 충북대학교 금융권 취업 동아리",
   description:
-    "충북대학교 금융권 취업 동아리 금은동입니다. 뉴스스크랩, 리포트 분석, 현직자 멘토링, 직무분석 경진대회 등 실전 금융 커리어를 준비합니다.",
+    "충북대학교 금융권 취업 동아리 금은동입니다. 신문 스크랩, 리포트 분석, 현직자 멘토링, 직무분석 경진대회 등 실전 금융 커리어를 준비합니다.",
   keywords: [
     "충북대",
     "금융 동아리",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "금은동 | 충북대학교 금융권 취업 동아리",
-    description: "금융을 실전으로 배우다. Since 2021.",
+    description: "Invest in yourself. Since 2021.",
     url: "https://cbnugold.com",
     siteName: "금은동",
     locale: "ko_KR",
@@ -53,7 +53,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased marble-texture">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

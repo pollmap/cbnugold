@@ -12,12 +12,12 @@ export function AccordionItem({ question, answer }: AccordionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gold/10">
+    <div className="border-b border-gold/15">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between py-5 text-left group"
       >
-        <span className="text-slate-100 font-medium pr-4 group-hover:text-gold transition-colors">
+        <span className="text-gray-800 font-medium pr-4 group-hover:text-gold transition-colors">
           {question}
         </span>
         <span className="text-gold shrink-0 transition-transform duration-300">
@@ -29,7 +29,7 @@ export function AccordionItem({ question, answer }: AccordionItemProps) {
           isOpen ? "max-h-96 pb-5" : "max-h-0"
         }`}
       >
-        <p className="text-slate-400 text-sm leading-relaxed">{answer}</p>
+        <p className="text-gray-500 text-sm leading-relaxed">{answer}</p>
       </div>
     </div>
   );
