@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import Image from "next/image";
 import type { Stat } from "@/types";
 
 const stats: Stat[] = [
@@ -29,28 +28,11 @@ export function Hero() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-24 pb-16">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0 }}
-          className="flex justify-center mb-6"
-        >
-          <Image
-            src="/images/logo.png"
-            alt="금은동 로고"
-            width={200}
-            height={62}
-            className="h-12 w-auto"
-            priority
-          />
-        </motion.div>
-
         {/* Main slogan */}
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0, ease: [0.22, 1, 0.36, 1] }}
           className="text-4xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
         >
           Invest in yourself
@@ -60,7 +42,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-gray-500 font-light mb-10"
         >
           충북대학교 금융권 취업 동아리 · Since 2021
@@ -70,7 +52,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="flex items-center justify-center gap-4"
         >
           <Link href="/join">
@@ -87,7 +69,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 max-w-3xl mx-auto"
         >
           {stats.map((stat) => (

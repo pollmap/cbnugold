@@ -36,7 +36,6 @@ export const curriculum: Semester[] = [
     label: "겨울방학 (12~2월)",
     items: [
       { month: "12~2월", title: "재능봉사캠프", desc: "신입부원 필수 참여" },
-      { month: "12~2월", title: "현직자 멘토링", desc: "금융권 선배와의 커리어 멘토링" },
     ],
   },
 ];

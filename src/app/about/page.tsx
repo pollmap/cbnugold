@@ -23,7 +23,7 @@ const visionCards = [
     icon: Network,
     title: "네트워크",
     description:
-      "현직자 멘토링, 연합 활동, 알럼나이 네트워크를 통해 금융권 커리어를 함께 만들어갑니다.",
+      "연합 활동, 알럼나이 네트워크를 통해 금융권 커리어를 함께 만들어갑니다.",
   },
 ];
 
@@ -45,7 +45,7 @@ export default function AboutPage() {
             <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">
               금은동은 2021년 신문 스크랩 동아리로 출발하여, 현재 금융권 취업을
               목표로 하는 충북대학교 대표 금융 동아리로 성장했습니다.
-              직무잡아드림 소속으로 체계적인 커리큘럼과 현직자 멘토링을 통해
+              직무잡아드림 소속으로 체계적인 커리큘럼을 통해
               금융권 커리어를 함께 준비합니다.
             </p>
           </motion.div>
