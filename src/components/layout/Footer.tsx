@@ -29,6 +29,7 @@ export function Footer() {
               Contact
             </h4>
             <p className="text-sm text-gray-600 font-medium mb-1">6대 회장 이승현</p>
+            <p className="text-sm text-gray-500 mb-1">010-2623-2004</p>
             <a
               href="mailto:cni351237@naver.com"
               className="text-sm text-gray-500 hover:text-gold transition-colors"
@@ -43,10 +44,14 @@ export function Footer() {
               href="https://www.instagram.com/cbnu_gold/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gold transition-colors"
+              className="group text-gray-400 hover:text-gold transition-colors text-center"
               aria-label="Instagram"
+              title="@cbnu_gold"
             >
-              <Instagram size={20} />
+              <Instagram size={20} className="mx-auto" />
+              <span className="mt-1 block text-[11px] text-gray-400 group-hover:text-gold transition-colors">
+                cbnu_gold
+              </span>
             </a>
             <a
               href="https://cafe.naver.com/cufaclub"

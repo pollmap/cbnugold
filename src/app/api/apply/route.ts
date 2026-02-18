@@ -3,6 +3,22 @@ import { createServerClient } from "@/lib/supabase-server";
 import { getResendClient, buildAdminEmail } from "@/lib/resend";
 import { validationRules, fileRules } from "@/lib/validations";
 
+function getStorageTroubleshootingHint(message?: string) {
+  if (!message) return "버킷 이름(applications), 파일 크기 제한(10MB), 그리고 Vercel 환경변수(NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)를 확인해주세요.";
+
+  if (message.includes("Bucket not found")) {
+    return "Storage에 applications 버킷이 실제로 생성되어 있는지 확인해주세요.";
+  }
+  if (message.includes("row-level security") || message.includes("permission")) {
+    return "storage.objects 정책(INSERT/SELECT) 또는 서비스 롤 키가 올바른지 확인해주세요.";
+  }
+  if (message.toLowerCase().includes("jwt") || message.toLowerCase().includes("invalid key")) {
+    return "SUPABASE_SERVICE_ROLE_KEY가 정확한지, Vercel에 최신 값으로 설정되었는지 확인해주세요.";
+  }
+
+  return "Storage 버킷/권한/환경변수를 다시 확인해주세요.";
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -39,49 +55,53 @@ export async function POST(request: NextRequest) {
     }
 
     const fileBuffer = Buffer.from(await file.arrayBuffer());
-    let fileUrl: string | null = null;
-    let supabaseOk = false;
+    const supabase = createServerClient();
+    const generation = 9;
+    const timestamp = Date.now();
+    const filePath = `${generation}/${studentId}_${name}_${timestamp}${ext}`;
 
-    // Try Supabase (optional — skip gracefully if env vars missing or upload fails)
-    try {
-      const supabase = createServerClient();
-      const timestamp = Date.now();
-      const filePath = `9/${studentId}_${name}_${timestamp}${ext}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("applications")
-        .upload(filePath, fileBuffer, {
-          contentType: file.type || "application/octet-stream",
-        });
-
-      if (!uploadError) {
-        const { data: urlData } = supabase.storage
-          .from("applications")
-          .getPublicUrl(filePath);
-        fileUrl = urlData.publicUrl;
-      } else {
-        console.error("Storage upload error:", uploadError);
-      }
-
-      // Insert DB record (proceed even if storage failed — file_url may be null)
-      const { error: insertError } = await supabase.from("applicants").insert({
-        name,
-        student_id: studentId,
-        email,
-        phone,
-        file_url: fileUrl,
-        file_name: file.name,
-        generation: 9,
-        status: "pending",
+    const { error: uploadError } = await supabase.storage
+      .from("applications")
+      .upload(filePath, fileBuffer, {
+        contentType: file.type || "application/octet-stream",
       });
 
-      if (insertError) {
-        console.error("DB insert error:", insertError);
-      } else {
-        supabaseOk = true;
-      }
-    } catch (supabaseError) {
-      console.error("Supabase unavailable:", supabaseError);
+    if (uploadError) {
+      console.error("Storage upload error:", uploadError);
+      const detailedMessage = uploadError.message || "unknown error";
+      return NextResponse.json(
+        {
+          error:
+            "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+          details: detailedMessage,
+          hint: getStorageTroubleshootingHint(detailedMessage),
+        },
+        { status: 500 }
+      );
+    }
+
+    const { data: urlData } = supabase.storage
+      .from("applications")
+      .getPublicUrl(filePath);
+    const fileUrl = urlData.publicUrl;
+
+    const { error: insertError } = await supabase.from("applicants").insert({
+      name,
+      student_id: studentId,
+      email,
+      phone,
+      file_url: fileUrl,
+      file_name: file.name,
+      generation,
+      status: "pending",
+    });
+
+    if (insertError) {
+      console.error("DB insert error:", insertError);
+      return NextResponse.json(
+        { error: "지원자 DB 저장에 실패했습니다. 테이블 및 RLS 정책을 확인해주세요." },
+        { status: 500 }
+      );
     }
 
     // Send emails — always attempt; attach file to admin email if not stored in Supabase
@@ -93,27 +113,14 @@ export async function POST(request: NextRequest) {
         e.trim()
       ) || ["cni351237@naver.com"];
 
-      // Attach file when not stored in Supabase Storage
-      const adminAttachments = !fileUrl
-        ? [{ filename: file.name, content: fileBuffer }]
-        : [];
-
       await resend.emails.send({
         from: "금은동 시스템 <onboarding@resend.dev>",
         to: adminEmails,
         subject: adminEmail.subject,
-        text: adminEmail.text + (fileUrl ? `\n\n파일: ${fileUrl}` : ""),
-        attachments: adminAttachments,
+        text: adminEmail.text + `\n\n파일: ${fileUrl}`,
       });
     } catch (emailError) {
       console.error("Email send error:", emailError);
-      // If neither Supabase nor email worked, report failure
-      if (!supabaseOk) {
-        return NextResponse.json(
-          { error: "지원서 제출에 실패했습니다. 잠시 후 다시 시도해주세요." },
-          { status: 500 }
-        );
-      }
     }
 
     return NextResponse.json({ success: true });
