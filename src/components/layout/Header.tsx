@@ -34,7 +34,7 @@ export function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full px-6 relative flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
@@ -47,8 +47,8 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Desktop Nav — absolutely centered */}
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1">
             {navItems.map((item) => {
               const isActive =
                 item.href === "/"

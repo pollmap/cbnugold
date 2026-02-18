@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <link rel="icon" href="/images/logo.png" />
         {/* Pretendard (Korean) */}
         <link
           rel="stylesheet"
