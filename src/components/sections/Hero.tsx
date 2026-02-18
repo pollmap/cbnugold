@@ -9,7 +9,7 @@ const stats: Stat[] = [
   { number: "5", suffix: "년", label: "Since 2021" },
   { number: "8", suffix: "기", label: "현재 기수" },
   { number: "60", suffix: "+", label: "누적 멤버" },
-  { number: "15", suffix: "+", label: "취업·인턴 배출" },
+  { number: "15", suffix: "+", label: "2025년 취업·인턴 배출" },
 ];
 
 export function Hero() {
