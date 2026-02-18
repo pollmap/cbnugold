@@ -241,7 +241,13 @@ export default function JoinPage() {
               <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
               <h3 className="text-2xl font-bold text-gray-900 mb-3">지원이 완료되었습니다</h3>
               <p className="text-gray-500 mb-2">{formData.name}님, 금은동 9기에 지원해주셔서 감사합니다.</p>
-              <p className="text-sm text-gray-400">입력하신 이메일로 확인 메일이 발송됩니다.</p>
+              <p className="text-sm text-gray-400 mb-6">서류 결과는 3월 3일(화) 문자로 안내됩니다.</p>
+              <a
+                href="/join/check"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gold border border-gold/30 rounded-lg hover:bg-gold/5 transition-colors"
+              >
+                지원 확인하기
+              </a>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">

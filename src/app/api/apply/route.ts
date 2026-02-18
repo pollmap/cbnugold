@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase-server";
-import { getResendClient, buildApplicantEmail, buildAdminEmail } from "@/lib/resend";
+import { getResendClient, buildAdminEmail } from "@/lib/resend";
 import { validationRules, fileRules } from "@/lib/validations";
 
 export async function POST(request: NextRequest) {
@@ -87,7 +87,6 @@ export async function POST(request: NextRequest) {
     // Send emails — always attempt; attach file to admin email if not stored in Supabase
     try {
       const resend = getResendClient();
-      const applicantEmail = buildApplicantEmail(name);
       const adminEmail = buildAdminEmail({ name, studentId, email, phone });
 
       const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) =>
@@ -99,21 +98,13 @@ export async function POST(request: NextRequest) {
         ? [{ filename: file.name, content: fileBuffer }]
         : [];
 
-      await Promise.allSettled([
-        resend.emails.send({
-          from: "금은동 <onboarding@resend.dev>",
-          to: email,
-          subject: applicantEmail.subject,
-          text: applicantEmail.text,
-        }),
-        resend.emails.send({
-          from: "금은동 시스템 <onboarding@resend.dev>",
-          to: adminEmails,
-          subject: adminEmail.subject,
-          text: adminEmail.text + (fileUrl ? `\n\n파일: ${fileUrl}` : ""),
-          attachments: adminAttachments,
-        }),
-      ]);
+      await resend.emails.send({
+        from: "금은동 시스템 <onboarding@resend.dev>",
+        to: adminEmails,
+        subject: adminEmail.subject,
+        text: adminEmail.text + (fileUrl ? `\n\n파일: ${fileUrl}` : ""),
+        attachments: adminAttachments,
+      });
     } catch (emailError) {
       console.error("Email send error:", emailError);
       // If neither Supabase nor email worked, report failure
