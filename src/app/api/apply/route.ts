@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
     const phone = formData.get("phone") as string;
     const file = formData.get("file") as File;
 
-    // Server-side validation
     if (!name || !validationRules.name.pattern.test(name)) {
       return NextResponse.json({ error: "올바른 이름을 입력해주세요" }, { status: 400 });
     }
@@ -71,8 +70,7 @@ export async function POST(request: NextRequest) {
       const detailedMessage = uploadError.message || "unknown error";
       return NextResponse.json(
         {
-          error:
-            "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+          error: "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
           details: detailedMessage,
           hint: getStorageTroubleshootingHint(detailedMessage),
         },
@@ -104,7 +102,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send emails — always attempt; attach file to admin email if not stored in Supabase
     try {
       const resend = getResendClient();
       const adminEmail = buildAdminEmail({ name, studentId, email, phone });
