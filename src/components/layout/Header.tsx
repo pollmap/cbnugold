@@ -34,7 +34,7 @@ export function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto h-full px-6 relative flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 relative flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
@@ -101,7 +101,7 @@ export function Header() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden text-gray-600 hover:text-gold transition-colors"
+            className="md:hidden h-10 w-10 inline-flex items-center justify-center -mr-2 text-gray-600 hover:text-gold transition-colors"
             aria-label="메뉴 열기"
           >
             <Menu size={24} />
