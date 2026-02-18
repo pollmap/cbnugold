@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
     const phone = formData.get("phone") as string;
     const file = formData.get("file") as File;
 
-    // Server-side validation
     if (!name || !validationRules.name.pattern.test(name)) {
       return NextResponse.json({ error: "올바른 이름을 입력해주세요" }, { status: 400 });
     }
@@ -58,7 +57,7 @@ export async function POST(request: NextRequest) {
     const supabase = createServerClient();
     const generation = 9;
     const timestamp = Date.now();
-    const filePath = `${generation}/${studentId}_${name}_${timestamp}${ext}`;
+    const filePath = `${generation}/${studentId}_${timestamp}${ext}`;
 
     const { error: uploadError } = await supabase.storage
       .from("applications")
@@ -103,7 +102,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send emails — always attempt; attach file to admin email if not stored in Supabase
     try {
       const resend = getResendClient();
       const adminEmail = buildAdminEmail({ name, studentId, email, phone });
@@ -125,8 +123,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Application submission error:", error);
+    const detailedMessage = error instanceof Error ? error.message : "unknown error";
+
+    if (detailedMessage.includes("Supabase server environment variables are not configured")) {
+      return NextResponse.json(
+        {
+          error: "서버 환경변수 설정이 누락되어 파일 업로드를 진행할 수 없습니다.",
+          details: detailedMessage,
+          hint: "Vercel 환경변수에 NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY를 추가 후 재배포해주세요.",
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { error: "서버 오류가 발생했습니다. 다시 시도해주세요." },
+      {
+        error: "서버 오류가 발생했습니다. 다시 시도해주세요.",
+        details: detailedMessage,
+      },
       { status: 500 }
     );
   }

@@ -54,6 +54,12 @@ interface FormErrors {
   consent?: string;
 }
 
+interface ApplyErrorResponse {
+  error?: string;
+  details?: string;
+  hint?: string;
+}
+
 export default function JoinPage() {
   // Form state
   const [formData, setFormData] = useState<FormData>({ name: "", studentId: "", email: "", phone: "" });
@@ -116,8 +122,16 @@ export default function JoinPage() {
       if (file) formPayload.append("file", file);
       const res = await fetch("/api/apply", { method: "POST", body: formPayload });
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "지원서 제출에 실패했습니다");
+        const data = (await res.json()) as ApplyErrorResponse;
+        const combinedMessage = [
+          data.error,
+          data.hint,
+          data.details ? `세부 오류: ${data.details}` : undefined,
+        ]
+          .filter(Boolean)
+          .join("\n");
+
+        throw new Error(combinedMessage || "지원서 제출에 실패했습니다");
       }
       setSubmitState("success");
     } catch (err) {
