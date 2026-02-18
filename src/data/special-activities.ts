@@ -7,7 +7,7 @@ export interface SpecialActivity {
 export const regularActivities: SpecialActivity[] = [
   {
     title: "신문 스크랩",
-    description: "매주 4인 1조로 금융 신문을 스크랩하고 분석·토의합니다. 시장 흐름을 읽는 눈을 기릅니다.",
+    description: "매주 각자 금융 신문을 스크랩해 네이버 공식 카페에 올리고, 4인 1조로 모여 분석·토의합니다. 시장 흐름을 읽는 눈을 기릅니다.",
     tags: ["#네이버공식카페"],
   },
   {
@@ -39,9 +39,9 @@ export const regularActivities: SpecialActivity[] = [
 
 export const etcActivities: SpecialActivity[] = [
   {
-    title: "하계·동계 방학 스터디",
-    description: "방학 기간 동안 자격증 준비, 금융 지식 심화 등 스터디를 진행합니다.",
-    tags: ["방학", "스터디"],
+    title: "재능봉사캠프",
+    description: "매 방학마다 진행하는 재능봉사캠프로, 신입부원은 필수 참여합니다.",
+    tags: ["방학", "필수"],
   },
   {
     title: "현직자 멘토링",

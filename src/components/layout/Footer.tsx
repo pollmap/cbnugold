@@ -28,11 +28,12 @@ export function Footer() {
             <h4 className="text-xs font-medium uppercase tracking-wider text-gold mb-3">
               Contact
             </h4>
+            <p className="text-sm text-gray-600 font-medium mb-1">6대 회장 이승현</p>
             <a
-              href="mailto:cbnu.gold@gmail.com"
+              href="mailto:cni351237@naver.com"
               className="text-sm text-gray-500 hover:text-gold transition-colors"
             >
-              cbnu.gold@gmail.com
+              cni351237@naver.com
             </a>
           </div>
 

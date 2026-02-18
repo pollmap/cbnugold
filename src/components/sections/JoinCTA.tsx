@@ -24,7 +24,7 @@ export function JoinCTA() {
           <p className="text-gray-500 mb-8">
             서류 접수: 2.19(목) ~ 3.1(일) 18:00
           </p>
-          <Link href="/join/apply">
+          <Link href="/join">
             <Button size="lg">지원하기</Button>
           </Link>
         </motion.div>

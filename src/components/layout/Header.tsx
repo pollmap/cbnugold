@@ -94,7 +94,7 @@ export function Header() {
             >
               N
             </a>
-            <Link href="/join/apply">
+            <Link href="/join">
               <Button size="sm">지원하기</Button>
             </Link>
           </div>

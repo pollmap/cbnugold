@@ -133,16 +133,6 @@ export default function AboutPage() {
 
             <div className="w-px h-6 bg-gold/25" />
 
-            {/* 총무 */}
-            <div className="bg-white border border-gray-200 rounded-xl px-8 py-4 text-center shadow-sm">
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                총무
-              </p>
-              <p className="text-lg font-semibold text-gray-800">&nbsp;</p>
-            </div>
-
-            <div className="w-px h-6 bg-gold/25" />
-
             {/* Teams */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
               {["은행팀", "증권팀", "보험팀", "기타"].map((team) => (
