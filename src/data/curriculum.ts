@@ -14,16 +14,14 @@ export const curriculum: Semester[] = [
     label: "1학기 (3~6월)",
     items: [
       { month: "3월", title: "OT + 팀 편성", desc: "신입부원 환영, 활동팀 배정" },
-      { month: "3~6월", title: "정규 활동", desc: "뉴스스크랩, 리포트분석, 직무발표" },
-      { month: "5월", title: "대동제 부스", desc: "축제 부스 운영" },
+      { month: "3~6월", title: "정규 활동", desc: "신문 스크랩, 리포트 분석, 직무발표" },
       { month: "6~8월", title: "직무분석 경진대회", desc: "여름방학 집중 프로그램" },
     ],
   },
   {
     label: "여름방학",
     items: [
-      { month: "7~8월", title: "재능봉사캠프", desc: "신입부원 필수 참여" },
-      { month: "8월", title: "DBGAPS 투자대회", desc: "선택 활동" },
+      { month: "7~8월", title: "방학 스터디", desc: "자격증 준비, 금융 지식 심화" },
     ],
   },
   {

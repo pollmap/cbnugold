@@ -47,7 +47,7 @@ export default function JoinPage() {
   return (
     <div className="pt-24">
       {/* Header */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white marble-texture">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -57,10 +57,10 @@ export default function JoinPage() {
             <Badge variant="open" className="mb-6 text-sm px-4 py-1.5">
               모집중
             </Badge>
-            <h1 className="text-3xl md:text-5xl font-bold text-slate-50 mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
               금은동 9기 신입부원 모집
             </h1>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg text-gray-500">
               서류 접수: 2.19(목) ~ 3.1(일) 18:00
             </p>
           </motion.div>
@@ -68,15 +68,15 @@ export default function JoinPage() {
       </section>
 
       {/* Process Steps */}
-      <section className="pb-24 md:pb-32">
-        <div className="max-w-4xl mx-auto px-6">
+      <section className="pb-24 md:pb-32 bg-marble-light">
+        <div className="max-w-4xl mx-auto px-6 pt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-lg font-semibold text-slate-200 mb-8">
+            <h2 className="text-lg font-semibold text-gray-700 mb-8">
               채용 프로세스
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -86,23 +86,22 @@ export default function JoinPage() {
                   className={`relative rounded-xl p-5 border transition-colors ${
                     step.status === "active"
                       ? "bg-gold/5 border-gold/30"
-                      : "bg-navy-800 border-gold/10"
+                      : "bg-white border-gray-200"
                   }`}
                 >
                   <span
                     className={`text-xs font-mono font-bold ${
                       step.status === "active"
                         ? "text-gold"
-                        : "text-slate-500"
+                        : "text-gray-400"
                     }`}
                   >
                     {step.step}
                   </span>
-                  <h3 className="font-semibold text-slate-100 mt-2 mb-1">
+                  <h3 className="font-semibold text-gray-800 mt-2 mb-1">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-slate-400">{step.date}</p>
-                  {/* Arrow connector */}
+                  <p className="text-xs text-gray-500">{step.date}</p>
                   {i < processSteps.length - 1 && (
                     <span className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-gold/30 text-lg">
                       →
@@ -116,7 +115,7 @@ export default function JoinPage() {
       </section>
 
       {/* Requirements */}
-      <section className="py-24 md:py-32 bg-navy-800/50">
+      <section className="py-24 md:py-32 bg-white marble-texture">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -124,19 +123,19 @@ export default function JoinPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-lg font-semibold text-slate-200 mb-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-6">
               지원 자격
             </h2>
             <div className="space-y-3">
               {requirements.map((req) => (
                 <div key={req} className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-300">{req}</span>
+                  <span className="text-gray-600">{req}</span>
                 </div>
               ))}
             </div>
-            <div className="mt-6 p-4 bg-navy-700 rounded-lg border border-gold/10">
-              <p className="text-sm text-slate-300">
+            <div className="mt-6 p-4 bg-marble-light rounded-lg border border-gray-200">
+              <p className="text-sm text-gray-600">
                 <span className="text-gold font-medium">회비:</span> 학기
                 10,000원 (조건 충족 시 환급)
               </p>
@@ -146,7 +145,7 @@ export default function JoinPage() {
       </section>
 
       {/* Application Download */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-marble-light">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,36 +153,36 @@ export default function JoinPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-lg font-semibold text-slate-200 mb-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-6">
               지원서 다운로드
             </h2>
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
               <a
                 href="/files/9기_금은동지원서_워드파일.docx"
                 download
-                className="flex items-center gap-4 bg-navy-800 border border-gold/10 rounded-xl p-5 hover:border-gold/25 transition-colors group"
+                className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >
                 <FileText className="w-10 h-10 text-gold/60 group-hover:text-gold transition-colors" />
                 <div className="flex-1">
-                  <p className="font-medium text-slate-200">워드 파일</p>
-                  <p className="text-xs text-slate-500">.docx</p>
+                  <p className="font-medium text-gray-700">워드 파일</p>
+                  <p className="text-xs text-gray-400">.docx</p>
                 </div>
-                <Download className="w-5 h-5 text-slate-500 group-hover:text-gold transition-colors" />
+                <Download className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
               </a>
               <a
                 href="/files/9기_금은동지원서_한글파일.hwp"
                 download
-                className="flex items-center gap-4 bg-navy-800 border border-gold/10 rounded-xl p-5 hover:border-gold/25 transition-colors group"
+                className="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-5 hover:border-gold/30 transition-colors group shadow-sm"
               >
                 <FileText className="w-10 h-10 text-gold/60 group-hover:text-gold transition-colors" />
                 <div className="flex-1">
-                  <p className="font-medium text-slate-200">한글 파일</p>
-                  <p className="text-xs text-slate-500">.hwp</p>
+                  <p className="font-medium text-gray-700">한글 파일</p>
+                  <p className="text-xs text-gray-400">.hwp</p>
                 </div>
-                <Download className="w-5 h-5 text-slate-500 group-hover:text-gold transition-colors" />
+                <Download className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
               </a>
             </div>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-gray-400">
               파일명 양식: 이름_전화번호뒷4자리_[9기_금은동_지원서]
             </p>
           </motion.div>
@@ -204,7 +203,7 @@ export default function JoinPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 md:py-32 bg-navy-800/50">
+      <section className="py-24 md:py-32 bg-white marble-texture">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,7 +212,7 @@ export default function JoinPage() {
             transition={{ duration: 0.5 }}
           >
             <SectionLabel label="FAQ" className="mb-6" />
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-50 text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 text-center mb-12">
               자주 묻는 질문
             </h2>
             <div className="max-w-2xl mx-auto">

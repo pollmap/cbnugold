@@ -6,7 +6,7 @@ import { history } from "@/data/history";
 
 export function History() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-24 md:py-32 bg-marble-light">
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -15,7 +15,7 @@ export function History() {
           transition={{ duration: 0.6 }}
         >
           <SectionLabel label="History" className="mb-6" />
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 text-center mb-16">
             금은동의 발자취
           </h2>
         </motion.div>
@@ -23,7 +23,7 @@ export function History() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-[28px] md:left-[40px] top-0 bottom-0 w-px bg-gold/20" />
+          <div className="absolute left-[28px] md:left-[40px] top-0 bottom-0 w-px bg-gold/25" />
 
           <div className="space-y-10">
             {history.map((entry, i) => (
@@ -52,19 +52,19 @@ export function History() {
                     <span className="text-2xl font-bold font-mono text-gold">
                       {entry.year}
                     </span>
-                    <span className="text-sm font-semibold text-slate-200">
+                    <span className="text-sm font-semibold text-gray-700">
                       {entry.generation}대 {entry.president}
                     </span>
                     {entry.isCurrent && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold/10 text-gold font-medium">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold/10 text-gold-dark font-medium">
                         Now
                       </span>
                     )}
                   </div>
                   <ul className="space-y-1">
                     {entry.milestones.map((ms) => (
-                      <li key={ms} className="text-sm text-slate-400 flex items-start gap-2">
-                        <span className="text-gold/40 mt-1.5 shrink-0">·</span>
+                      <li key={ms} className="text-sm text-gray-500 flex items-start gap-2">
+                        <span className="text-gold/50 mt-1.5 shrink-0">·</span>
                         {ms}
                       </li>
                     ))}
