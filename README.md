@@ -1,1 +1,48 @@
-# cbnugold
+# 금은동 (CBNU GOLD)
+
+충북대학교 금융권 취업 동아리 금은동 공식 웹사이트
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router, TypeScript)
+- **Styling:** Tailwind CSS 4 + Framer Motion
+- **Backend:** Supabase (PostgreSQL + Auth + Storage)
+- **Email:** Resend
+- **Deploy:** Vercel
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+## Environment Variables
+
+Copy `.env.local` and fill in your Supabase + Resend credentials:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+RESEND_API_KEY=
+ADMIN_EMAILS=cbnu.gold@gmail.com
+NEXT_PUBLIC_SITE_URL=https://cbnugold.com
+```
+
+## Database Setup
+
+Run `supabase-schema.sql` in the Supabase SQL Editor to create tables and RLS policies.
+
+## Project Structure
+
+```
+src/
+  app/          - Pages and API routes
+  components/   - UI primitives, layout, page sections
+  data/         - Static content (Korean text, data)
+  lib/          - Supabase, Resend, validation utilities
+  types/        - TypeScript type definitions
+```
