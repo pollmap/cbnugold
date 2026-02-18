@@ -39,49 +39,50 @@ export async function POST(request: NextRequest) {
     }
 
     const fileBuffer = Buffer.from(await file.arrayBuffer());
-    let fileUrl: string | null = null;
-    let supabaseOk = false;
+    const supabase = createServerClient();
+    const generation = 9;
+    const timestamp = Date.now();
+    const filePath = `${generation}/${studentId}_${name}_${timestamp}${ext}`;
 
-    // Try Supabase (optional — skip gracefully if env vars missing or upload fails)
-    try {
-      const supabase = createServerClient();
-      const timestamp = Date.now();
-      const filePath = `9/${studentId}_${name}_${timestamp}${ext}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("applications")
-        .upload(filePath, fileBuffer, {
-          contentType: file.type || "application/octet-stream",
-        });
-
-      if (!uploadError) {
-        const { data: urlData } = supabase.storage
-          .from("applications")
-          .getPublicUrl(filePath);
-        fileUrl = urlData.publicUrl;
-      } else {
-        console.error("Storage upload error:", uploadError);
-      }
-
-      // Insert DB record (proceed even if storage failed — file_url may be null)
-      const { error: insertError } = await supabase.from("applicants").insert({
-        name,
-        student_id: studentId,
-        email,
-        phone,
-        file_url: fileUrl,
-        file_name: file.name,
-        generation: 9,
-        status: "pending",
+    const { error: uploadError } = await supabase.storage
+      .from("applications")
+      .upload(filePath, fileBuffer, {
+        contentType: file.type || "application/octet-stream",
       });
 
-      if (insertError) {
-        console.error("DB insert error:", insertError);
-      } else {
-        supabaseOk = true;
-      }
-    } catch (supabaseError) {
-      console.error("Supabase unavailable:", supabaseError);
+    if (uploadError) {
+      console.error("Storage upload error:", uploadError);
+      return NextResponse.json(
+        {
+          error:
+            "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const { data: urlData } = supabase.storage
+      .from("applications")
+      .getPublicUrl(filePath);
+    const fileUrl = urlData.publicUrl;
+
+    const { error: insertError } = await supabase.from("applicants").insert({
+      name,
+      student_id: studentId,
+      email,
+      phone,
+      file_url: fileUrl,
+      file_name: file.name,
+      generation,
+      status: "pending",
+    });
+
+    if (insertError) {
+      console.error("DB insert error:", insertError);
+      return NextResponse.json(
+        { error: "지원자 DB 저장에 실패했습니다. 테이블 및 RLS 정책을 확인해주세요." },
+        { status: 500 }
+      );
     }
 
     // Send emails — always attempt; attach file to admin email if not stored in Supabase
@@ -93,27 +94,14 @@ export async function POST(request: NextRequest) {
         e.trim()
       ) || ["cni351237@naver.com"];
 
-      // Attach file when not stored in Supabase Storage
-      const adminAttachments = !fileUrl
-        ? [{ filename: file.name, content: fileBuffer }]
-        : [];
-
       await resend.emails.send({
         from: "금은동 시스템 <onboarding@resend.dev>",
         to: adminEmails,
         subject: adminEmail.subject,
-        text: adminEmail.text + (fileUrl ? `\n\n파일: ${fileUrl}` : ""),
-        attachments: adminAttachments,
+        text: adminEmail.text + `\n\n파일: ${fileUrl}`,
       });
     } catch (emailError) {
       console.error("Email send error:", emailError);
-      // If neither Supabase nor email worked, report failure
-      if (!supabaseOk) {
-        return NextResponse.json(
-          { error: "지원서 제출에 실패했습니다. 잠시 후 다시 시도해주세요." },
-          { status: 500 }
-        );
-      }
     }
 
     return NextResponse.json({ success: true });
