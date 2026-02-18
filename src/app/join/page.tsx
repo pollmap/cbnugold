@@ -254,7 +254,7 @@ export default function JoinPage() {
 
               <Input id="name" label="이름" placeholder="홍길동" required value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)} error={errors.name} />
-              <Input id="studentId" label="학번" placeholder="20211234" required value={formData.studentId}
+              <Input id="studentId" label="학번" placeholder="2021123456" required value={formData.studentId}
                 onChange={(e) => handleChange("studentId", e.target.value)} error={errors.studentId} />
               <Input id="email" label="이메일" type="email" placeholder="example@cbnu.ac.kr" required value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)} error={errors.email} />

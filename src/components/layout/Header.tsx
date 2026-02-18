@@ -12,7 +12,6 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/activity", label: "Activity" },
-  { href: "/join", label: "Join Us" },
 ];
 
 export function Header() {
