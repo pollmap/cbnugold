@@ -71,8 +71,7 @@ export async function POST(request: NextRequest) {
       const detailedMessage = uploadError.message || "unknown error";
       return NextResponse.json(
         {
-          error:
-            "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
+          error: "파일 업로드에 실패했습니다. Supabase Storage 버킷(applications)과 권한 설정을 확인해주세요.",
           details: detailedMessage,
           hint: getStorageTroubleshootingHint(detailedMessage),
         },
