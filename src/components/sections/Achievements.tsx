@@ -75,7 +75,7 @@ export function Achievements() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="flex items-center gap-4"
               >
-                <div className="flex-1 h-10 rounded-lg bg-gradient-to-r from-gold/20 to-transparent flex items-center px-4">
+                <div className="flex-1 h-10 rounded-lg bg-gold/10 flex items-center px-4">
                   <span className="text-sm font-medium text-slate-200">
                     {award.title}
                   </span>

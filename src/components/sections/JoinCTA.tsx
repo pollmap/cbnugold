@@ -16,7 +16,7 @@ export function JoinCTA() {
           className="relative bg-navy-700 border border-gold/20 rounded-2xl p-10 md:p-16 text-center overflow-hidden"
         >
           {/* Top gold line */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-gold/40" />
 
           <h2 className="text-2xl md:text-4xl font-bold text-slate-50 mb-4">
             금은동 9기와 함께할 당신을 기다립니다

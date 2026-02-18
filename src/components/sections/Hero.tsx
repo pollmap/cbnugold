@@ -16,14 +16,13 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-900 via-navy-800 to-navy-700" />
-      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-navy-900" />
+      {/* Dot pattern overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(201,168,76,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.3) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+          backgroundImage: "radial-gradient(circle, rgba(201,168,76,0.5) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
         }}
       />
 
@@ -96,8 +95,8 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy-900 to-transparent" />
+      {/* Bottom divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gold/10" />
     </section>
   );
 }
