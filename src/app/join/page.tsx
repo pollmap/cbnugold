@@ -222,7 +222,7 @@ export default function JoinPage() {
                 <Download className="w-5 h-5 text-gray-400 group-hover:text-gold transition-colors" />
               </a>
             </div>
-            <p className="text-xs text-gray-400">파일명 양식: 이름_전화번호뒷4자리_[9기_금은동_지원서]</p>
+            <p className="text-xs text-gray-400">파일명: 이름_핸드폰번호뒷4자리_[9기_금은동_지원서]</p>
           </motion.div>
         </div>
       </section>
