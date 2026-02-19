@@ -29,7 +29,7 @@ export function AccordionItem({ question, answer }: AccordionItemProps) {
           isOpen ? "max-h-96 pb-5" : "max-h-0"
         }`}
       >
-        <p className="text-gray-500 text-sm leading-relaxed">{answer}</p>
+        <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{answer}</p>
       </div>
     </div>
   );
