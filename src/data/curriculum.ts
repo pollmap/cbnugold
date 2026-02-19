@@ -33,7 +33,7 @@ export const curriculum: Semester[] = [
       {
         month: "10월",
         title: "MT",
-        desc: "중간고사 이후 1박 2일 MT 예정\n금은동의 더 자세한 정규 및 기타 활동은 공식 인스타에서 확인해주시기 바랍니다.",
+        desc: "중간고사 이후 1박 2일 MT 예정",
       },
       { month: "11월", title: "성과보고회", desc: "1년 활동 결산 발표" },
     ],
