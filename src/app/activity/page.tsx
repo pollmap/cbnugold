@@ -92,6 +92,12 @@ export default function ActivityPage() {
               </motion.div>
             ))}
           </motion.div>
+
+          {activeTab === "etc" && (
+            <p className="text-sm text-gray-500 text-center mt-8">
+              금은동의 더 자세한 정규 및 기타 활동은 공식 인스타에서 확인해주시기 바랍니다.
+            </p>
+          )}
         </div>
       </section>
     </div>

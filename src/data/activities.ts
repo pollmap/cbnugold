@@ -19,7 +19,7 @@ export const activities: Activity[] = [
   },
   {
     number: "03",
-    title: "금융 세일즈 실습",
+    title: "금융상품 세일즈 페어",
     subtitle: "실전 영업 체험",
     description:
       "은행 및 증권 영업점에 방문하여 실제 상품에 관한 상담을 받고 세일즈 실습 및 상호평가를 진행합니다.",

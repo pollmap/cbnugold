@@ -11,7 +11,7 @@ export const regularActivities: SpecialActivity[] = [
     tags: ["#네이버공식카페"],
   },
   {
-    title: "금융 세일즈 실습",
+    title: "금융상품 세일즈 페어",
     description: "은행 및 증권 영업점에 방문하여 실제 상품에 관한 상담을 받고 세일즈 실습 및 상호평가를 진행합니다.",
     tags: ["#금융상품세일즈", "#시장분석"],
   },
