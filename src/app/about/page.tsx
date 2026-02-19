@@ -208,7 +208,7 @@ export default function AboutPage() {
                         <p className="font-medium text-gray-700 text-sm">
                           {item.title}
                         </p>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-gray-500 mt-0.5 whitespace-pre-line">
                           {item.desc}
                         </p>
                       </div>
