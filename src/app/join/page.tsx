@@ -292,7 +292,7 @@ export default function JoinPage() {
                     errors.file ? "border-red-400/40 bg-red-500/5" : file ? "border-gold/30 bg-gold/5" : "border-gray-300 hover:border-gold/30 bg-marble-light"
                   }`}
                 >
-                  <input ref={fileInputRef} type="file" accept=".hwp,.docx,.pdf" onChange={handleFileChange} className="hidden" />
+                  <input ref={fileInputRef} type="file" accept=".hwp,.docx,.pdf,application/x-hwp,application/haansofthwp,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf" onChange={handleFileChange} className="sr-only" />
                   <Upload className="w-8 h-8 text-gray-400 mx-auto mb-3" />
                   {file ? (
                     <p className="text-sm text-gold font-medium">{file.name}</p>
