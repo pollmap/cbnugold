@@ -54,6 +54,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://cbnugold.vercel.app",
   },
+  verification: {
+    google: "PBjLy42PMYDwpa4eoGQ-2TbsgOYJmzy4IfD19eoPBRo",
+  },
 };
 
 export default function RootLayout({
